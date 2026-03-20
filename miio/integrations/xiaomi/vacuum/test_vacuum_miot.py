@@ -83,7 +83,9 @@ class DummyXiaomiVacuumE101GBEmptyRoomInfo(DummyXiaomiVacuumE101GB):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.state = {
-            prop["did"]: prop["value"] for prop in self.state if prop["did"] != "room_information"
+            prop["did"]: prop["value"]
+            for prop in self.state
+            if prop["did"] != "room_information"
         }
         self.state["room_information"] = ""
         self.state = [{"did": k, "value": v, "code": 0} for k, v in self.state.items()]
@@ -204,4 +206,6 @@ def test_status_maps_response_without_request_did():
 
 
 def test_status_ignores_unexpected_property_response():
-    assert DummyXiaomiVacuumE101GBUnexpected()._get_properties_for_keys(["status"]) == {}
+    assert (
+        DummyXiaomiVacuumE101GBUnexpected()._get_properties_for_keys(["status"]) == {}
+    )
